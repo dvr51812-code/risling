@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог: SO4, Chardonnay, Riesling</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+    --color-bg: #FFFFFF;
+    --color-text: #2C2C2C;
+    --color-text-light: #666666;
+    --color-border: #E5E5E5;
+    --color-bg-soft: #F9F9F9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: #F0F0F0;
+    color: var(--color-text);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.catalog-page {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--color-bg);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+}
+
+.catalog-header {
+    grid-column: 1 / -1;
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.brand { font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.doc-number { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; opacity: 0.9; }
+
+.variety-profile {
+    padding: 30px 25px;
+    background-color: var(--color-bg-soft);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+.variety-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+.variety-synonyms { font-size: 0.82rem; color: var(--color-text-light); font-style: italic; margin-bottom: 10px; }
+.trait-bar { margin-bottom: 12px; }
+.trait-label {
+    display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; color: var(--color-text);
+}
+.bar-bg { height: 6px; background-color: #E0E0E0; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+
+.info-box { padding-top: 18px; border-top: 1px solid var(--color-border); }
+.info-box h3 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.2px;
+    margin-bottom: 8px; font-weight: 700;
+}
+.info-box p { font-size: 0.82rem; color: var(--color-text-light); line-height: 1.6; text-align: justify; }
+
+.technical-data { padding: 30px 30px; display: flex; flex-direction: column; gap: 28px; }
+.section-title {
+    font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.8px;
+    border-bottom: 2px solid; padding-bottom: 6px; margin-bottom: 15px; display: inline-block;
+}
+.description-text { font-size: 0.88rem; color: var(--color-text); line-height: 1.7; margin-bottom: 10px; text-align: justify; }
+
+.clone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.clone-card {
+    background: white; border: 1px solid var(--color-border); padding: 12px 14px;
+    border-radius: 0 4px 4px 0; transition: transform 0.2s;
+}
+.clone-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.clone-id { font-size: 1rem; font-weight: 700; color: var(--color-text); margin-bottom: 3px; font-family: 'Playfair Display', serif; }
+.clone-purpose { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; }
+.clone-desc { font-size: 0.8rem; color: var(--color-text-light); line-height: 1.5; }
+
+.rootstock-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.rootstock-table th {
+    text-align: left; padding: 9px 10px; background-color: var(--color-bg-soft);
+    color: var(--color-text); font-weight: 700; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.8px; border-bottom: 2px solid var(--color-border);
+}
+.rootstock-table td { padding: 9px 10px; border-bottom: 1px solid var(--color-border); color: var(--color-text); vertical-align: top; line-height: 1.5; }
+.rootstock-table tr:last-child td { border-bottom: none; }
+.rs-code { font-weight: 700; font-family: 'Montserrat', sans-serif; }
+.compatibility { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+.comp-high { background-color: #E8F5E9; color: #2E7D32; }
+.comp-med { background-color: #FFF3E0; color: #E65100; }
+.comp-low { background-color: #FFEBEE; color: #C62828; }
+
+.warning-section {
+    background-color: #FFF5F5; border-left: 4px solid #C62828; padding: 16px 20px; border-radius: 0 4px 4px 0;
+}
+.warning-title { font-weight: 700; color: #C62828; text-transform: uppercase; font-size: 0.82rem; letter-spacing: 1px; margin-bottom: 10px; }
+.warning-section ul { margin-left: 18px; color: var(--color-text); font-size: 0.82rem; }
+.warning-section li { margin-bottom: 8px; line-height: 1.6; }
+
+.catalog-footer {
+    grid-column: 1 / -1; background-color: var(--color-bg-soft); padding: 12px 30px;
+    border-top: 1px solid var(--color-border); display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.72rem; color: var(--color-text-light);
+}
+.disclaimer { font-style: italic; line-height: 1.5; max-width: 70%; }
+
+/* Тематические цвета */
+.theme-so4 { --theme: #5D4037; --theme-light: #8D6E63; }
+.theme-chard { --theme: #B8860B; --theme-light: #D4AF37; }
+.theme-ries { --theme: #2E5C38; --theme-light: #4A7C59; }
+
+.catalog-header { background-color: var(--theme); }
+.variety-title { color: var(--theme); }
+.bar-fill { background-color: var(--theme); }
+.bar-fill.red { background-color: #C62828; }
+.bar-fill.gold { background-color: #D4AF37; }
+.info-box h3 { color: var(--theme); }
+.section-title { color: var(--theme); border-color: var(--theme); }
+.clone-card { border-left: 4px solid var(--theme); }
+.clone-purpose { color: var(--theme); }
+.rs-code { color: var(--theme); }
+
+@media (max-width: 768px) {
+    .catalog-page { grid-template-columns: 1fr; }
+    .variety-profile { border-right: none; border-bottom: 1px solid var(--color-border); }
+    .clone-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= SO4 ================= -->
+<div class="catalog-page theme-so4">
+    <header class="catalog-header">
+        <div class="brand">Европейские рекомендации питомников и селекционных институтов</div>
+        <div class="doc-number">Подвойная коллекция · 2026</div>
+    </header>
+    <aside class="variety-profile">
+        <div>
+            <h1 class="variety-title">SO4</h1>
+            <div class="variety-synonyms">Синонимы: Selection Oppenheim 4, СО4</div>
+        </div>
+        <div>
+            <div class="trait-bar"><div class="trait-label"><span>Сила роста</span><span>Высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Устойчивость к засухе</span><span>Средняя / Высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 70%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Толерантность к извести</span><span>Средняя (до 25 процентов)</span></div><div class="bar-bg"><div class="bar-fill gold" style="width: 50%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Устойчивость к нематодам</span><span>Очень высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Укореняемость черенков</span><span>Высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div></div>
+        </div>
+        <div class="info-box">
+            <h3>Ботаническая характеристика</h3>
+            <p>Гибрид <em>Vitis berlandieri</em> × <em>Vitis riparia</em>, созданный Э. Дюрренбахом в Оппенхайме (Германия). Отличается мощной, хорошо разветвленной корневой системой. Лист крупный, темно-зеленый. Обеспечивает высокую силу роста привою, что может быть как преимуществом на бедных почвах, так и недостатком на плодородных, где провоцирует задержку созревания и жирование лозы.</p>
+        </div>
+        <div class="info-box">
+            <h3>Типы почв</h3>
+            <p>Идеально подходит для тяжелых, глинистых, переувлажненных или каменистых почв с низким естественным плодородием, где требуется дополнительная вегетативная энергия. Не рекомендуется для глубоких меловых почв с высоким содержанием активной извести (риск хлороза) и для богатых гумусом почв при выращивании сортов, склонных к жированию (например, Пино-Нуар).</p>
+        </div>
+    </aside>
+    <main class="technical-data">
+        <section>
+            <h2 class="section-title">Обзор подвоя</h2>
+            <p class="description-text">SO4 исторически является одним из самых распространенных подвоев в мире благодаря своей исключительной адаптивности, легкости размножения в питомниках и хорошей устойчивости к корневой филлоксере и нематодам. Однако современная европейская энология (IFV, Geisenheim) пересматривает его применение: если раньше его сажали «везде», то сейчас его рекомендуют точечно.</p>
+            <p class="description-text">Главный риск при использовании SO4 — избыточная вегетативная сила, которая задерживает фенольную зрелость и снижает концентрацию ароматических веществ в ягоде. Это особенно критично для ранних или деликатных сортов. На плодородных почвах его использование требует агрессивного формирования полога куста (обломка, прореживание листьев, строгий контроль нагрузки урожаем).</p>
+        </section>
+        <section>
+            <h2 class="section-title">Рекомендуемые привои (сорта)</h2>
+            <div class="clone-grid">
+                <div class="clone-card">
+                    <div class="clone-id">Sauvignon Blanc</div>
+                    <div class="clone-purpose">Белые сорта</div>
+                    <div class="clone-desc">Отличная совместимость. SO4 помогает поддерживать баланс вегетации и плодоношения, сохраняя характерную кислотность и ароматику сорта даже на умеренно плодородных почвах.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">Merlot / Syrah</div>
+                    <div class="clone-purpose">Красные сорта</div>
+                    <div class="clone-desc">Рекомендуется только на бедных, каменистых или засушливых почвах, где слаборослые подвои (3309C, 101-14) не смогут обеспечить достаточную площадь листовой поверхности для вызревания урожая.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">Riesling</div>
+                    <div class="clone-purpose">Ароматические сорта</div>
+                    <div class="clone-desc">Классическая пара в некоторых регионах Германии и Эльзаса для поддержания высокой урожайности и сохранения кислотности, но требует строгого контроля нагрузки, чтобы избежать разбавления экстракта.</div>
+                </div>
+                <div class="clone-card" style="border-left-color: #C62828;">
+                    <div class="clone-id">Pinot Noir</div>
+                    <div class="clone-purpose" style="color: #C62828;">Ограниченное применение</div>
+                    <div class="clone-desc">Не рекомендуется для премиальных тихих вин из-за риска задержки созревания и снижения танинной структуры. Допустим только на тяжелых, переувлажненных почвах с клонами, имеющими рыхлую гроздь (FR 1801, 828).</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="warning-section">
+                <div class="warning-title">⚠ Критические ограничения для SO4</div>
+                <ul>
+                    <li><strong>Запрет на плодородных почвах с деликатными сортами:</strong> Комбинация SO4 + Пино-Нуар (клоны 777, 667) или Шардоне (клон 95) на богатых почвах ведет к жированию, загущению полога и фенольной незрелости.</li>
+                    <li><strong>Риск хлороза:</strong> При содержании активной извести более 25 процентов на подвое SO4 высок риск проявления хлороза, особенно в сочетании с дефицитом магния.</li>
+                    <li><strong>Управление пологом:</strong> При использовании SO4 обязательны жесткие мероприятия по формированию полога куста для обеспечения проветривания и доступа света к зонам плодоношения.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer class="catalog-footer">
+        <div class="disclaimer">Данные основаны на многолетних испытаниях IFV, Geisenheim и Freiburg. Окончательный выбор требует лабораторного анализа почвы участка.</div>
+        <div>European Nursery & Breeding Guidelines · v.2026.10</div>
+    </footer>
+</div>
+
+<!-- ================= CHARDONNAY ================= -->
+<div class="catalog-page theme-chard">
+    <header class="catalog-header">
+        <div class="brand">Европейские рекомендации питомников и селекционных институтов</div>
+        <div class="doc-number">Сорта винограда · 2026</div>
+    </header>
+    <aside class="variety-profile">
+        <div>
+            <h1 class="variety-title">Chardonnay</h1>
+            <div class="variety-synonyms">Синонимы: Пино Шардоне, Бонуа, Арнуазон, Морлон</div>
+        </div>
+        <div>
+            <div class="trait-bar"><div class="trait-label"><span>Сила роста</span><span>Средняя</span></div><div class="bar-bg"><div class="bar-fill" style="width: 55%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Плодовитость почек</span><span>Высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Потенциал накопления сахара</span><span>Высокий</span></div><div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Устойчивость к серой гнили</span><span>Средняя</span></div><div class="bar-bg"><div class="bar-fill gold" style="width: 50%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Чувствительность к заморозкам</span><span>Высокая (раннее распускание)</span></div><div class="bar-bg"><div class="bar-fill red" style="width: 85%;"></div></div></div>
+        </div>
+        <div class="info-box">
+            <h3>Ампелография</h3>
+            <p>Лист средний, округлый, трех- или пятилопастный, со слабой рассеченностью. Гроздь мелкая или средняя, цилиндрическая, часто с крылом, умеренно плотная. Ягода мелкая, округлая, зеленовато-желтая с золотистым оттенком и коричневыми пятнами на солнечной стороне. Сорт раннего срока созревания, очень пластичный, ярко отражающий особенности терруара и методы виноделия.</p>
+        </div>
+        <div class="info-box">
+            <h3>Типы почв и климат</h3>
+            <p>Прекрасно адаптируется к различным почвам, но лучшие результаты показывает на глинисто-известковых и мергелистых почвах (как в Кот-де-Бон или Шабли). Чувствителен к весенним заморозкам из-за раннего распускания почек. В жарком климате быстро теряет кислотность, поэтому требует тщательного выбора подвоя и сроков сбора.</p>
+        </div>
+    </aside>
+    <main class="technical-data">
+        <section>
+            <h2 class="section-title">Обзор сорта</h2>
+            <p class="description-text">Шардоне — один из самых распространенных и экономически значимых белых сортов в мире. Его главная ценность заключается в способности производить вина широкого спектра стилей: от минеральных, высококислотных игристых вин (блан-де-блан) до мощных, маслянистых тихих вин, выдержанных в дубе. Ключ к качеству — контроль урожайности и сохранение свежести (кислотности) в момент сбора.</p>
+        </section>
+        <section>
+            <h2 class="section-title">Рекомендуемые клоны</h2>
+            <div class="clone-grid">
+                <div class="clone-card">
+                    <div class="clone-id">76</div>
+                    <div class="clone-purpose">Классический / Универсальный</div>
+                    <div class="clone-desc">Эталонный клон из Бургундии. Сбалансированная урожайность, хороший потенциал накопления сахара и сохранение кислотности. Подходит как для тихих, так и для игристых вин.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">95</div>
+                    <div class="clone-purpose">Тихие премиальные вина</div>
+                    <div class="clone-desc">Мелкая ягода, низкая урожайность. Обеспечивает высокую концентрацию ароматов, минеральность и отличную структуру. Идеален для выдержки в дубе.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">96</div>
+                    <div class="clone-purpose">Тихие вина (Альтернатива 95)</div>
+                    <div class="clone-desc">Похож на 95, но с чуть более высокой урожайностью и чуть меньшей кислотностью. Дает элегантные, округлые вина с хорошим потенциалом старения.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">277</div>
+                    <div class="clone-purpose">Игристые вина / Базовые</div>
+                    <div class="clone-desc">Высокая урожайность, более крупная ягода и рыхлая гроздь. Обеспечивает хороший выход сока и нейтральный, чистый профиль, идеальный для шампанизации.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">809</div>
+                    <div class="clone-purpose">Игристые вина (Премиум)</div>
+                    <div class="clone-desc">Позднее созревание, очень высокое удержание кислотности и низкий pH. Считается одним из лучших клонов для производства высококлассного шампанского.</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="section-title">Совместимость с подвоями</h2>
+            <table class="rootstock-table">
+                <thead><tr><th>Подвой</th><th>Тип почвы</th><th>Толерантность к извести</th><th>Совместимость</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="rs-code">3309C</span></td><td>Глубокие, плодородные, не известковые</td><td>Низкая (менее 20 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">420A</span></td><td>Бедные, сухие, известковые</td><td>Высокая (до 40 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">101-14 Mgt</span></td><td>Умеренно плодородные, легкие</td><td>Низкая (менее 20 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">SO4</span></td><td>Тяжелые, глинистые, бедные</td><td>Средняя (до 25 процентов)</td><td><span class="compatibility comp-med">Хорошо</span></td></tr>
+                    <tr><td><span class="rs-code">Fercal</span></td><td>Меловые, высокоизвестковые</td><td>Очень высокая (более 40 процентов)</td><td><span class="compatibility comp-med">Хорошо</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="catalog-footer">
+        <div class="disclaimer">Данные основаны на многолетних испытаниях IFV, CIVC и Geisenheim. Окончательный выбор требует лабораторного анализа почвы участка.</div>
+        <div>European Nursery & Breeding Guidelines · v.2026.10</div>
+    </footer>
+</div>
+
+<!-- ================= RIESLING ================= -->
+<div class="catalog-page theme-ries">
+    <header class="catalog-header">
+        <div class="brand">Европейские рекомендации питомников и селекционных институтов</div>
+        <div class="doc-number">Сорта винограда · 2026</div>
+    </header>
+    <aside class="variety-profile">
+        <div>
+            <h1 class="variety-title">Riesling</h1>
+            <div class="variety-synonyms">Синонимы: Weißer Riesling, Рейнский рислинг, Йоханнисберг</div>
+        </div>
+        <div>
+            <div class="trait-bar"><div class="trait-label"><span>Сила роста</span><span>Средняя / Высокая</span></div><div class="bar-bg"><div class="bar-fill" style="width: 65%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Плодовитость почек</span><span>Средняя</span></div><div class="bar-bg"><div class="bar-fill" style="width: 50%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Потенциал накопления сахара</span><span>Средний / Высокий</span></div><div class="bar-bg"><div class="bar-fill" style="width: 70%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Удержание кислотности</span><span>Очень высокое</span></div><div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div></div>
+            <div class="trait-bar"><div class="trait-label"><span>Устойчивость к серой гнили</span><span>Низкая (тонкая кожица)</span></div><div class="bar-bg"><div class="bar-fill red" style="width: 30%;"></div></div></div>
+        </div>
+        <div class="info-box">
+            <h3>Ампелография</h3>
+            <p>Лист средний, округлый, слабо- или среднеассеченный, с характерными «пузырчатыми» вздутиями между жилками. Гроздь мелкая или средняя, часто крылатая, плотная. Ягода очень мелкая, округлая, зеленовато-желтая, с сильным восковым налетом и мелкими коричневыми точками (ржавчинками) на солнечной стороне. Сорт позднего срока созревания.</p>
+        </div>
+        <div class="info-box">
+            <h3>Типы почв и климат</h3>
+            <p>Король прохладного климата. Лучших результатов достигает на крутых склонах с каменистыми, сланцевыми или известковыми почвами, которые хорошо аккумулируют и отдают тепло. Позднее распускание почек надежно защищает его от весенних заморозков. Способен сохранять высокую титруемую кислотность даже при полном физиологическом созревании, что позволяет производить вина широкого спектра сладости.</p>
+        </div>
+    </aside>
+    <main class="technical-data">
+        <section>
+            <h2 class="section-title">Обзор сорта</h2>
+            <p class="description-text">Рислинг — величайший белый сорт Германии и Эльзаса, обладающий уникальной способностью передавать минеральность терруара («petrol» или керосиновые ноты при выдержке являются признаком зрелости, а не дефектом). Главная агрономическая задача — обеспечить полное вызревание ягоды (снижение зеленого, травянистого тона) при сохранении здоровой ягоды, так как тонкая кожица делает его крайне уязвимым к серой гнили в дождливую осень.</p>
+        </section>
+        <section>
+            <h2 class="section-title">Рекомендуемые клоны</h2>
+            <div class="clone-grid">
+                <div class="clone-card">
+                    <div class="clone-id">Gm 198</div>
+                    <div class="clone-purpose">Классический (Geisenheim)</div>
+                    <div class="clone-desc">Самый распространенный клон в Германии. Высокое качество сусла, отличный баланс сахара и кислоты, хорошая адаптивность к различным участкам.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">Gm 239</div>
+                    <div class="clone-purpose">Высокоурожайный (Geisenheim)</div>
+                    <div class="clone-desc">Более высокая урожайность и сила роста по сравнению с Gm 198. Требует строгого контроля нагрузки для предотвращения разбавления экстракта и ароматики.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">FR 334</div>
+                    <div class="clone-purpose">Устойчивость к гнилям (Freiburg)</div>
+                    <div class="clone-desc">Селекция Фрайбурга. Более рыхлая гроздь, что значительно снижает риск поражения серой гнилью в дождливые винтажи. Сохраняет отличный сортовой аромат.</div>
+                </div>
+                <div class="clone-card">
+                    <div class="clone-id">FR 534</div>
+                    <div class="clone-purpose">Позднее созревание (Freiburg)</div>
+                    <div class="clone-desc">Исключительно высокое удержание кислотности и позднее созревание. Идеален для производства вин позднего сбора (Spätlese, Auslese) с высокой потенциальной сладостью.</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="section-title">Совместимость с подвоями</h2>
+            <table class="rootstock-table">
+                <thead><tr><th>Подвой</th><th>Тип почвы</th><th>Толерантность к извести</th><th>Совместимость</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="rs-code">SO4</span></td><td>Глубокие, умеренно плодородные</td><td>Средняя (до 25 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">5BB (Kober)</span></td><td>Тяжелые, глинистые, влажные</td><td>Средняя (до 25 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">125 AA</span></td><td>Бедные, каменистые, сухие</td><td>Высокая (до 30 процентов)</td><td><span class="compatibility comp-high">Отлично</span></td></tr>
+                    <tr><td><span class="rs-code">3309C</span></td><td>Легкие, не известковые почвы</td><td>Низкая (менее 20 процентов)</td><td><span class="compatibility comp-med">Хорошо</span></td></tr>
+                    <tr><td><span class="rs-code">Fercal</span></td><td>Меловые, высокоизвестковые</td><td>Очень высокая (более 40 процентов)</td><td><span class="compatibility comp-med">Хорошо</span></td></tr>
+                </tbody>
+            </table>
+            <p style="font-size: 0.75rem; color: var(--color-text-light); margin-top: 8px; font-style: italic;">
+                * Для Рислинга часто предпочитают подвои со средней или высокой силой роста (SO4, 5BB), чтобы компенсировать его естественную склонность к умеренной вегетации и обеспечить достаточную площадь листовой поверхности для вызревания в прохладном климате.
+            </p>
+        </section>
+        <section>
+            <div class="warning-section">
+                <div class="warning-title">⚠ Критические агрономические ограничения</div>
+                <ul>
+                    <li><strong>Риск серой гнили:</strong> Из-за тонкой кожицы и плотной грозди Рислинг крайне уязвим. На влажных участках обязательна посадка клонов с рыхлой гроздью (FR 334) и строгое формирование полога куста для проветривания.</li>
+                    <li><strong>Избегать избыточной силы роста:</strong> На очень плодородных почвах сильнорослые подвои могут привести к чрезмерному затенению и задержке созревания, что проявляется в виде травянистых, незрелых тонов в вине.</li>
+                    <li><strong>Управление урожаем:</strong> Сорт склонен к перегрузке. Нормировка соцветий или зеленая чеканка обязательны для достижения концентрации, необходимой для производства качественных вин позднего сбора.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer class="catalog-footer">
+        <div class="disclaimer">Данные основаны на многолетних испытаниях IFV, Geisenheim и Freiburg. Окончательный выбор требует лабораторного анализа почвы участка.</div>
+        <div>European Nursery & Breeding Guidelines · v.2026.10</div>
+    </footer>
+</div>
+
+</body>
+</html>
